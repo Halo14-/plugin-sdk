@@ -1,0 +1,8 @@
+int CPed::RetrieveJumpState()
+{
+  return (*(DWORD*)0xB6F5F0 + 0x46D);
+}
+/*CPed +0x46D = Jump state:
+32 = landed/idle
+34 = in air
+36 = landing*/
