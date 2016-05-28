@@ -6,11 +6,6 @@ home page for more info:
 https://github.com/benhoyt/inih
 
 */
-
-#ifdef _MSC_VER
-#define _CRT_SECURE_NO_WARNINGS
-#endif
-
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
