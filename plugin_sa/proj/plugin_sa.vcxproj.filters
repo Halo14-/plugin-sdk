@@ -610,7 +610,6 @@
     <ClInclude Include="..\game_sa\CAttractorScanner.h">
       <Filter>game_sa</Filter>
     </ClInclude>
-    <ClInclude Include="..\ScriptCommands.h" />
     <ClInclude Include="..\game_sa\CRunningScriptWrapper.h">
       <Filter>game_sa</Filter>
     </ClInclude>
@@ -622,6 +621,16 @@
     </ClInclude>
     <ClInclude Include="..\third-party\inih\INIReader.h">
       <Filter>inih</Filter>
+    </ClInclude>
+    <ClInclude Include="..\ScriptCommands.h" />
+    <ClInclude Include="..\game_sa\CLoadedCarGroup.h">
+      <Filter>game_sa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_sa\CPopCycle.h">
+      <Filter>game_sa</Filter>
+    </ClInclude>
+    <ClInclude Include="..\game_sa\CPopulation.h">
+      <Filter>game_sa</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -968,6 +977,15 @@
       <Filter>game_sa</Filter>
     </ClCompile>
     <ClCompile Include="..\game_sa\CTaskTimer.cpp">
+      <Filter>game_sa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_sa\CLoadedCarGroup.cpp">
+      <Filter>game_sa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_sa\CTaskComplexPlayHandSignalAnim.cpp">
+      <Filter>game_sa</Filter>
+    </ClCompile>
+    <ClCompile Include="..\game_sa\CPopulation.cpp">
       <Filter>game_sa</Filter>
     </ClCompile>
     <ClCompile Include="..\ScriptCommands.cpp" />

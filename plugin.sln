@@ -19,6 +19,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SA_HandSignals", "examples\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SA_VehicleSpawner", "examples\SA_VehicleSpawner\SA_VehicleSpawner.vcxproj", "{8423DBF9-94F8-4E12-AA76-BD3525718EBA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "free", "free\free.vcxproj", "{56423D65-41ED-46C4-AB98-297167FEF954}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -81,6 +83,14 @@ Global
 		{8423DBF9-94F8-4E12-AA76-BD3525718EBA}.Release|Win32.Build.0 = Release|Win32
 		{8423DBF9-94F8-4E12-AA76-BD3525718EBA}.Release|x64.ActiveCfg = Release|x64
 		{8423DBF9-94F8-4E12-AA76-BD3525718EBA}.Release|x64.Build.0 = Release|x64
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Debug|Win32.ActiveCfg = Debug|Win32
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Debug|Win32.Build.0 = Debug|Win32
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Debug|x64.ActiveCfg = Debug|x64
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Debug|x64.Build.0 = Debug|x64
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Release|Win32.ActiveCfg = Release|Win32
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Release|Win32.Build.0 = Release|Win32
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Release|x64.ActiveCfg = Release|x64
+		{56423D65-41ED-46C4-AB98-297167FEF954}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
