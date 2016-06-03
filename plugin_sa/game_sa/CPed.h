@@ -27,6 +27,8 @@ enum eMoveState {
 
 #pragma pack(push, 4)
 class PLUGIN_API CPed : public CPhysical {
+protected:
+    CPed(plugin::dummy_func_t){}
 public:
 	CPedCollisionAudio  m_CollisionAudio;
 	CPedVoice           m_PedVoice;
@@ -332,6 +334,7 @@ public:
 	void GetBonePosition(RwV3d& outPosition, unsigned int boneId, bool updateSkinBones);
 	CObject* GiveObjectToPedToHold(int modelIndex, unsigned char replace);
 	void SetPedState(ePedState pedState);
+	//1 = default, 2 = scm/mission script
 	void SetCharCreatedBy(unsigned char createdBy);
 	void CalculateNewVelocity();
 	void CalculateNewOrientation();
@@ -380,6 +383,9 @@ public:
 	void KillPedWithCar(CVehicle* car, float arg1, bool arg2);
 	void MakeTyresMuddySectorList(CPtrList& ptrList);
 	void DeadPedMakesTyresBloody();
+
+    static void* operator new(unsigned int size);
+    static void operator delete(void* data);
 };
 #pragma pack(pop)
 
