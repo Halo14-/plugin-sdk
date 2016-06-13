@@ -10,7 +10,23 @@ bool plugin::CheckValidConsoleKeyPress()
     		int inputKey = PrepareInputForCommandParsing(&i);		
     		g_Console.takeInput(inputKey);
     		
+    		logFile << "g_Console taking input w/ " << inputKey << "\n";
     		return true;
     	}
     }
+}
+int plugin::HandleConsoleKeyPress(unsigned int keyCode)
+{
+    switch(keyCode) {
+        case VK_SHIFT:
+            shift = !shift;
+            break;
+        case VK_F1:
+            g_Console.drawConsole = !g_Console.drawConsole;
+            break;
+        case VK_RETURN:
+            ParseConsoleCommand();
+            break;
+    }   
+    logFile << "HandleConsoleKeyPress() called with " << keyCode << "\n";
 }
