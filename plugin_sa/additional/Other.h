@@ -2,4 +2,5 @@
 
 namespace plugin {
     bool KeyPressed(unsigned int keyCode);
+    bool CheckValidConsoleKeyPress();   
 }
