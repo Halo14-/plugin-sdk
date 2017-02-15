@@ -156,11 +156,15 @@ int ini_parse_file(FILE* file,
 #endif
     }
 
+    int ret = line;
+    
 #if !INI_USE_STACK
     free(line);
 #endif
-
+    printf("Parsed %d lines.\n", ret);    
+    
     return error;
+    //return line;
 }
 
 /* See documentation in header file. */
@@ -174,6 +178,8 @@ int ini_parse(const char* filename,
     file = fopen(filename, "r");
     if (!file)
         return -1;
+    printf("Parsed file %s\n", filename);
+    
     error = ini_parse_file(file, handler, user);
     fclose(file);
     return error;
