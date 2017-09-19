@@ -1,9 +1,24 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CAutomobile.h"
 
+bool &CAutomobile::m_sAllTaxiLights = *(bool *)0xC1BFD0;
+CVector &CAutomobile::vecHunterGunPos = *(CVector *)0x8D3394;
+
+CColPoint *aAutomobileColPoints = (CColPoint *)0xC1BFF8;
+
+CAutomobile::CAutomobile(int modelIndex, unsigned char createdBy, bool setupSuspensionLines) : CVehicle(plugin::dummy) {
+    ((void(__thiscall *)(CAutomobile*, int, unsigned char, bool))0x6B0A90)(this, modelIndex, createdBy, setupSuspensionLines);
+}
+
 // Converted from void CAutomobile::ProcessAI(uint &) 0x0
-void CAutomobile::ProcessAI(unsigned int& arg0)
+bool CAutomobile::ProcessAI(unsigned int& arg0)
 {
-    ((void(__thiscall *)(CAutomobile*, unsigned int&))(*(void ***)this)[66])(this, arg0);
+    return ((bool(__thiscall *)(CAutomobile*, unsigned int&))(*(void ***)this)[66])(this, arg0);
 }
 
 // Converted from void CAutomobile::ResetSuspension(void) 0x0

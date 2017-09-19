@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CStreaming.h"
 
 int &CStreaming::ms_currentZoneType = *(int *)0x8E4C20;
@@ -5,6 +11,8 @@ unsigned int &CStreaming::ms_streamingBufferSize = *(unsigned int *)0x8E4CA8;
 unsigned int &CStreaming::ms_memoryUsed = *(unsigned int *)0x8E4CB4;
 unsigned int &CStreaming::ms_numModelsRequested = *(unsigned int *)0x8E4CB8;
 bool &CStreaming::ms_disableStreaming = *(bool *)0x9654B0;
+
+CStreamingInfo *CStreaming::ms_aInfoForModel = (CStreamingInfo *)0x8E4CC0;
 
 void CStreaming::ImGonnaUseStreamingMemory()
 {
@@ -53,7 +61,7 @@ unsigned int CStreaming::GetDefaultCopModel()
 
 unsigned int CStreaming::GetDefaultCopCarModel(unsigned int arg0)
 {
-    return ((unsigned int(__cdecl *)())0x407C50)();
+    return ((unsigned int(__cdecl *)(unsigned int))0x407C50)(arg0);
 }
 
 void CStreaming::LoadAllRequestedModels(bool bOnlyQuickRequests)
@@ -85,6 +93,10 @@ void CStreaming::RequestModel(int modelIndex, int flags)
 void CStreaming::SetModelIsDeletable(int modelIndex)
 {
     ((void(__cdecl *)(int))0x409C10)(modelIndex);
+}
+
+void CStreaming::SetModelTxdIsDeletable(int modelIndex) {
+    ((void(__cdecl *)(int))0x409C70)(modelIndex);
 }
 
 void CStreaming::SetMissionDoesntRequireModel(int modelIndex)

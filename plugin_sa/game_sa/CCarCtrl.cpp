@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CCarCtrl.h"
 
 void CCarCtrl::GetCarToParkAtCoords(CVehicle* veh, CVector* coords)
@@ -56,4 +62,8 @@ void CCarCtrl::SteerAIBoatWithPhysicsCirclingPlayer(CVehicle* veh, float* a1, fl
 CVehicle* CCarCtrl::CreateOneEmergencyServicesVehicle(int model, CVector driveToCoord)
 {
 	return ((CVehicle*(__cdecl *)(int, CVector))0x42B7D0)(model, driveToCoord);
+}
+
+CVehicle *CCarCtrl::CreateCarForScript(int modelId, CVector posn, unsigned char bMissionVehicle) {
+    return ((CVehicle*(__cdecl *)(int, CVector, unsigned char))0x431F80)(modelId, posn, bMissionVehicle);
 }

@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
 /* This class is used to control 2 sounds as one. There are 2 sounds
@@ -10,7 +16,7 @@
    m_pBaseAudio is a pointer to audio which created twin sound. For example,
    this could be CAEVehicleAudioEntity for playing skid sounds.              */
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CAEAudioEntity.h"
 
 #pragma pack(push, 1)

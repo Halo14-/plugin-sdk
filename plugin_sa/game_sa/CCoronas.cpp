@@ -1,13 +1,22 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CCoronas.h"
+
+unsigned int MAX_CORONAS = 64;
+RwTexture **gpCoronaTexture = (RwTexture **)0xC3E000;
 
 float& CCoronas::SunScreenX = *(float *)0xC3E028;
 float& CCoronas::SunScreenY = *(float *)0xC3E02C;
-unsigned __int8& CCoronas::SunBlockedByClouds = *(unsigned __int8 *)0xC3E030;
+bool& CCoronas::SunBlockedByClouds = *(bool *)0xC3E030;
 bool& CCoronas::bChangeBrightnessImmediately = *(bool *)0xC3E034;
-unsigned __int32& CCoronas::NumRegisteredCoronas = *(unsigned __int32 *)0xC3E038;
+unsigned int& CCoronas::NumCoronas = *(unsigned int *)0xC3E038;
 CRegisteredCorona *CCoronas::aCoronas = (CRegisteredCorona *)0xC3E058;
 float& CCoronas::LightsMult = *(float *)0x8D4B5C;
-unsigned __int32& CCoronas::MoonSize = *(unsigned __int32 *)0x8D4B60;
+unsigned int& CCoronas::MoonSize = *(unsigned int *)0x8D4B60;
 
 void CCoronas::Init()
 {
@@ -46,7 +55,7 @@ void CCoronas::RegisterCorona(unsigned int id, CEntity *attachTo, unsigned char 
 
 void CCoronas::RegisterCorona(unsigned int id, CEntity *attachTo, unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha, CVector const &posn, float radius, float farClip, eCoronaType coronaType, unsigned char flare, bool enableReflection, bool checkObstacles, int _param_not_used, float angle, bool longDistance, float nearClip, unsigned char fadeState, float fadeSpeed, bool onlyFromBelow, bool reflectionDelay)
 {
-	((void (__cdecl *)(unsigned int, CEntity *, unsigned char, unsigned char, unsigned char, unsigned char, CVector const &, float, float, unsigned char, unsigned char, bool, bool, int, float, bool, float, unsigned char, float, bool, bool))0x6FC580)(id, attachTo, red, green, blue, alpha, posn, radius, farClip, coronaType, flare, enableReflection, checkObstacles, _param_not_used, angle, longDistance, nearClip, fadeState, fadeSpeed, onlyFromBelow, reflectionDelay);
+	((void (__cdecl *)(unsigned int, CEntity *, unsigned char, unsigned char, unsigned char, unsigned char, CVector const &, float, float, eCoronaType, unsigned char, bool, bool, int, float, bool, float, unsigned char, float, bool, bool))0x6FC580)(id, attachTo, red, green, blue, alpha, posn, radius, farClip, coronaType, flare, enableReflection, checkObstacles, _param_not_used, angle, longDistance, nearClip, fadeState, fadeSpeed, onlyFromBelow, reflectionDelay);
 }
 
 void CCoronas::UpdateCoronaCoors(unsigned int id, CVector  const& posn, float farClip, float angle)

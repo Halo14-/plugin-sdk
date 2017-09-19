@@ -1,6 +1,12 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CModelInfo.h"
 
-CBaseModelInfo **CModelInfo::ms_modelInfoPtrs = *(CBaseModelInfo***)(0x403DA4 + 3);
+CBaseModelInfo **CModelInfo::ms_modelInfoPtrs = (CBaseModelInfo**)0xA9B0C8;
 
 // Converted from stdcall void CModelInfo::ReInit2dEffects(void) 0x4C63B0
 void CModelInfo::ReInit2dEffects()
@@ -174,4 +180,8 @@ bool CModelInfo::IsTrailerModel(int index)
 int CModelInfo::IsVehicleModelType(int index)
 {
 	return ((int (__cdecl *)(int))0x4C5C80)(index);
+}
+
+CBaseModelInfo *CModelInfo::GetModelInfo(int index) {
+    return plugin::CallAndReturn<CBaseModelInfo *, 0x403DA0, int>(index);
 }

@@ -1,15 +1,22 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
-#include "plbase/PluginBase.h"
-#include "CPtrList.h"
+#include "plbase/PluginBase_SA.h"
+#include "CPtrListDoubleLink.h"
 
-#pragma pack(push, 4)
-class PLUGIN_API CRepeatSector
-{
-public:
-	CPtrList m_VehiclesList;
-	CPtrList m_PedsList;
-	CPtrList m_ObjectsList;
+enum eRepeatSectorList {
+    REPEATSECTOR_VEHICLES = 0,
+    REPEATSECTOR_PEDS = 1,
+    REPEATSECTOR_OBJECTS = 2
 };
-#pragma pack(pop)
+
+class PLUGIN_API CRepeatSector {
+public:
+    CPtrListDoubleLink m_lists[3];
+};
 
 VALIDATE_SIZE(CRepeatSector, 0xC);

@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CPed.h"
 
 // Converted from thiscall void* CPed::operator new(uint size) 0x5E4720
@@ -611,9 +617,9 @@ void CPed::RemoveWeaponForScriptedCutscene()
 }
 
 // Converted from thiscall void CPed::GetWeaponSkill(void) 0x5E6580
-void CPed::GetWeaponSkill()
+char CPed::GetWeaponSkill()
 {
-	((void (__thiscall *)(CPed*))0x5E6580)(this);
+	return ((char (__thiscall *)(CPed*))0x5E6580)(this);
 }
 
 // Converted from thiscall void CPed::PreRenderAfterTest(void) 0x5E65A0

@@ -1,6 +1,12 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CVector2D.h"
 #include "CSprite2d.h"
 
@@ -219,7 +225,9 @@ public:
 	bool                m_bLanguageChanged;
 	__int8 field_8D[3];
 	__int32 field_90;
-	__int8 field_94[24];
+	__int32 field_94;
+	RwInt8 *            m_pJPegBuffer; //!< +0x98  \see JPegCompress file
+	__int8  field_9C[16];
 	__int32 field_AC;
 	__int8              m_nRadioMode;
 	__int8 invertPadX1;
@@ -253,21 +261,21 @@ public:
 	__int32 field_F0;
 	__int8 field_F4;
 	__int8 field_F5[3];
-	union{
-		struct{
-			CSprite2d m_apTextures[25];
-		};
-		struct{
-			CSprite2d m_apRadioSprites[13];
-			CSprite2d m_apBackgroundTextures[8];
-			CSprite2d m_apAdditionalBackgroundTextures[2];
-			CSprite2d m_apMouseTextures[2];
-		};
-	};
+	//union{
+	//	struct{
+	CSprite2d m_apTextures[25];
+	//	};
+	//	struct{
+	//		CSprite2d m_apRadioSprites[13];
+	//		CSprite2d m_apBackgroundTextures[8];
+	//		CSprite2d m_apAdditionalBackgroundTextures[2];
+	//		CSprite2d m_apMouseTextures[2];
+	//	};
+	//};
 	bool                m_bTexturesLoaded;
 	unsigned __int8     m_nCurrentMenuPage;
 	__int8 field_15E;
-	bool                m_bSelectedSaveGame;
+	unsigned char       m_bSelectedSaveGame;
 	__int8 field_160;
 	__int8 field_161;
 	char                m_mpackName[8];
@@ -354,6 +362,23 @@ public:
 
 	static bool& bInvertMouseX;
 	static bool& bInvertMouseY;
+
+public:
+	CMenuManager();
+	~CMenuManager();
+
+	void DrawWindow(const CRect& coords, const char* pKey, unsigned char nColour, CRGBA backColor, bool Unused, bool bBackground);
+    char SwitchToNewScreen(char page);
+    void SaveSettings();
+    char InitialiseChangedLanguageSettings(char a2);
+    void ScrollRadioStations(char numStations);
+    void ProcessMissionPackNewGame();
+    signed int DoSettingsBeforeStartingAGame();
+    char SetDefaultPreferences(eMenuPage page);
+    char PrintMap();
+    char PrintStats();
+    char PrintBriefs();
+    char DrawControllerSetupScreen();
 };
 #pragma pack(pop)
 

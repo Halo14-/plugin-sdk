@@ -1,9 +1,10 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CMatrix.h"
-
-CMatrix::CMatrix()
-{
-	// dummy
-}
 
 CMatrix::CMatrix(CMatrix const& matrix)
 {
@@ -162,17 +163,43 @@ void CMatrix::SetRotate(CQuaternion  const& quat)
 	((void (__thiscall *)(CMatrix *, CQuaternion  const&))0x59BBF0)(this, quat);
 }
 
-void CMatrix::operator=(CMatrix const& right)
-{
-	((void (__thiscall *)(CMatrix *, CMatrix const&))0x59BBC0)(this, right);
+void CMatrix::Scale(float scale) {
+    plugin::CallMethod<0x459350, CMatrix *, float>(this, scale);
 }
 
-void CMatrix::operator+=(CMatrix const& right)
-{
-	((void (__thiscall *)(CMatrix *, CMatrix const&))0x59ADF0)(this, right);
+void CMatrix::Scale(float x, float y, float z) {
+    plugin::CallMethod<0x459350, CMatrix *, float, float, float>(this, x, y, z);
 }
 
-void CMatrix::operator*=(CMatrix const& right)
+void CMatrix::operator=(CMatrix const& rvalue)
 {
-	((void (__thiscall *)(CMatrix *, CMatrix const&))0x411A80)(this, right);
+	((void (__thiscall *)(CMatrix *, CMatrix const&))0x59BBC0)(this, rvalue);
+}
+
+void CMatrix::operator+=(CMatrix const& rvalue)
+{
+	((void (__thiscall *)(CMatrix *, CMatrix const&))0x59ADF0)(this, rvalue);
+}
+
+void CMatrix::operator*=(CMatrix const& rvalue)
+{
+	((void (__thiscall *)(CMatrix *, CMatrix const&))0x411A80)(this, rvalue);
+}
+
+CMatrix operator*(CMatrix const&a, CMatrix const&b) {
+    CMatrix result;
+    ((void(__cdecl *)(CMatrix*, CMatrix const&, CMatrix const&))0x59BE30)(&result, a, b);
+    return result;
+}
+
+CVector operator*(CMatrix const&a, CVector const&b) {
+    CVector result;
+    ((void(__cdecl *)(CVector*, CMatrix const&, CVector const&))0x59C890)(&result, a, b);
+    return result;
+}
+
+CMatrix operator+(CMatrix const&a, CMatrix const&b) {
+    CMatrix result;
+    ((void(__cdecl *)(CMatrix*, CMatrix const&, CMatrix const&))0x59BFA0)(&result, a, b);
+    return result;
 }

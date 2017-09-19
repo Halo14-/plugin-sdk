@@ -1,5 +1,11 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "RenderWare.h"
 #include "CVector.h"
 
@@ -12,13 +18,13 @@ public:
     float real;
     
 	// Quat to matrix
-	void Get(struct RwMatrix* out);
+	void Get(RwMatrix* out);
 
 	// Quat to euler angles
 	void Get(float *x, float *y, float *z);
 
 	// Quat to axis & angle
-	void Get(struct RwV3d *axis, float *angle);
+	void Get(RwV3d *axis, float *angle);
 
 	// Stores result of quat multiplication
 	void Multiply(CQuaternion const& a, CQuaternion const& b);
@@ -33,7 +39,7 @@ public:
 	void Set(float x, float y, float z);
 
 	// Quat from axis & angle
-	void Set(struct RwV3d *axis, float angle);
+	void Set(RwV3d *axis, float angle);
 
 	// Spherical linear interpolation
 	void Slerp(CQuaternion const& from, CQuaternion const& to, float t);

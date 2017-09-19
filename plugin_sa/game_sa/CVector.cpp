@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CVector.h"
 
 #define FUNC_CVector__Magnitude 0x4082C0
@@ -16,9 +22,9 @@ CVector::CVector()
 
 }
 
-CVector::CVector(float x, float y, float z)
+CVector::CVector(float X, float Y, float Z)
 {
-	((void(__thiscall *)(CVector *, float, float, float))0x420B10)(this, x, y, z);
+	((void(__thiscall *)(CVector *, float, float, float))0x420B10)(this, X, Y, Z);
 }
 
 // Returns length of vector

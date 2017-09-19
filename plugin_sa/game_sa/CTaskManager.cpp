@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CTaskManager.h"
 
 // Converted from thiscall void CTaskManager::CTaskManager(CPed *ped) 0x6816A0
@@ -52,7 +58,7 @@ void CTaskManager::SetNextSubTask(CTask* task) {
 
 // Converted from thiscall CTask* CTaskManager::GetSimplestTask(CTask *task) 0x681970
 CTask* CTaskManager::GetSimplestTask(CTask* task) {
-    return ((CTask* (__thiscall *)(CTaskManager*, CTask*))0x681970)(this, task);
+    return ((CTask* (__cdecl *)(CTask*))0x681970)(task);
 }
 
 // Converted from thiscall void CTaskManager::StopTimers(CEvent const*_event) 0x6819A0

@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CBaseModelInfo.h"
 
 CBaseModelInfo *CBaseModelInfo::AsAtomicModelInfoPtr()
@@ -102,7 +108,7 @@ void CBaseModelInfo::RemoveRef()
 
 void CBaseModelInfo::SetColModel(CColModel *colModel, bool initPairedModel)
 {
-	((void (__thiscall *)(CBaseModelInfo *, bool))0x4C4BC0)(this, initPairedModel);
+	((void (__thiscall *)(CBaseModelInfo *, CColModel *, bool))0x4C4BC0)(this, colModel, initPairedModel);
 }
 
 void CBaseModelInfo::Init2dEffects()

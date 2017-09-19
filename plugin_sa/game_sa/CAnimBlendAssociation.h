@@ -1,10 +1,21 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
+#include "CAnimBlendHierarchy.h"
 
-#pragma pack(push, 4)
-class PLUGIN_API CAnimBlendAssociation
-{
+enum eAnimBlendFlags {
+    ANIM_PLAYING = 1,
+    ANIM_LOOP = 2,
+    ANIM_PARTIAL = 16
+};
+
+class CAnimBlendAssociation {
 protected:
 	void *vtable;
 
@@ -14,7 +25,7 @@ public:
 	uint16_t m_wNumBlendNodes;
 	int16_t m_wAnimGroup;
 	class CAnimBlendNode *m_pAnimBlendNodeArray;
-	class CAnimBlendHierarchy *m_pAnimBlendHierarchy;
+	CAnimBlendHierarchy *m_pAnimBlendHierarchy;
 	float m_fBlendAmount;
 	float m_fBlendDelta;
 	float m_fCurrentTime;
@@ -26,6 +37,5 @@ public:
 	void *m_pCallbackFunc;
 	void *m_pCallbackData;
 };
-#pragma pack(pop)
 
 VALIDATE_SIZE(CAnimBlendAssociation, 0x3C);

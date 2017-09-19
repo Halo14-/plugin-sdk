@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CFont.h"
 
 CSprite2d *CFont::Sprite = (CSprite2d *)0xC71AD0;
@@ -131,9 +137,9 @@ void CFont::SetProp(bool on)
 #define SetProp SetPropA
 #endif
 
-void CFont::SetBackground(bool background, bool backgroundOnlyText)
+void CFont::SetBackground(bool enable, bool includeWrap)
 {
-	((void (__cdecl *)(bool, bool))0x7195C0)(background, backgroundOnlyText);
+	((void (__cdecl *)(bool, bool))0x7195C0)(enable, includeWrap);
 }
 
 void CFont::SetBackgroundColor(CRGBA color)

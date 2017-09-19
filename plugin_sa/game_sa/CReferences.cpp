@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CReferences.h"
 
 CReference *CReferences::aRefs = (CReference *)0xB9B9A8;
@@ -10,7 +16,7 @@ void CReferences::Init()
 
 unsigned int CReferences::ListSize(CReference *ref)
 {
-	return ((unsigned int (__cdecl *)())0x5719E0)();
+	return ((unsigned int (__cdecl *)(CReference *))0x5719E0)(ref);
 }
 
 void CReferences::RemoveReferencesToPlayer()

@@ -1,27 +1,30 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CRegisteredCorona.h"
 
-#define MAX_NUM_CORONAS 64
-
-class PLUGIN_API CCoronas
-{
+class CCoronas {
 public:
 	// sun 2d position
 	static float& SunScreenX;
 	static float& SunScreenY;
 	// are there any obstacles between sun and camera
-	static unsigned __int8& SunBlockedByClouds;
+	static bool& SunBlockedByClouds;
 	// change coronas brightness immediately
 	static bool& bChangeBrightnessImmediately;
 	// num of registered coronas in frame
-	static unsigned __int32& NumRegisteredCoronas;
+	static unsigned int& NumCoronas;
 	// coronas intensity multiplier
 	static float& LightsMult;
 	// this is used to control moon size when you shooting it with sniper
-	static unsigned __int32& MoonSize;
-	// Coronas array. count: MAX_NUM_CORONAS (64)
+	static unsigned int& MoonSize;
+	// Coronas array. count: MAX_NUM_CORONAS (default: 64)
 	static CRegisteredCorona *aCoronas;
 
 	// Initialises coronas
@@ -44,3 +47,6 @@ public:
 	// Draw sun (Moon went to CClouds since SA)
 	static void DoSunAndMoon();
 };
+
+extern unsigned int MAX_CORONAS;
+extern RwTexture **gpCoronaTexture;

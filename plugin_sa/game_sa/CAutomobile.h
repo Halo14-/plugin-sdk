@@ -1,49 +1,57 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CVehicle.h"
 #include "CDoor.h"
-#include "CPanel.h"
+#include "CBouncingPanel.h"
 #include "CDamageManager.h"
 #include "CColPoint.h"
 
 class CObject;
 
-enum eAutomobileModelNodes {
-    AUTOMOBILE_NODE_NONE = 0,
-    AUTOMOBILE_NODE_CHASSIS = 1,
-    AUTOMOBILE_NODE_WHEEL_RF_DUMMY = 2,
-    AUTOMOBILE_NODE_WHEEL_RM_DUMMY = 3,
-    AUTOMOBILE_NODE_WHEEL_RB_DUMMY = 4,
-    AUTOMOBILE_NODE_WHEEL_LF_DUMMY = 5,
-    AUTOMOBILE_NODE_WHEEL_LM_DUMMY = 6,
-    AUTOMOBILE_NODE_WHEEL_LB_DUMMY = 7,
-    AUTOMOBILE_NODE_DOOR_RF_DUMMY = 8,
-    AUTOMOBILE_NODE_DOOR_RR_DUMMY = 9,
-    AUTOMOBILE_NODE_DOOR_LF_DUMMY = 10,
-    AUTOMOBILE_NODE_DOOR_LR_DUMMY = 11,
-    AUTOMOBILE_NODE_BUMP_FRONT_DUMMY = 12,
-    AUTOMOBILE_NODE_BUMP_REAR_DUMMY = 13,
-    AUTOMOBILE_NODE_WING_RF_DUMMY = 14,
-    AUTOMOBILE_NODE_WING_LF_DUMMY = 15,
-    AUTOMOBILE_NODE_BONNET_DUMMY = 16,
-    AUTOMOBILE_NODE_BOOT_DUMMY = 17,
-    AUTOMOBILE_NODE_WINDSCREEN_DUMMY = 18,
-    AUTOMOBILE_NODE_EXHAUST_OK = 19,
-    AUTOMOBILE_NODE_MISC_A = 20,
-    AUTOMOBILE_NODE_MISC_B = 21,
-    AUTOMOBILE_NODE_MISC_C = 22,
-    AUTOMOBILE_NODE_MISC_D = 23,
-    AUTOMOBILE_NODE_MISC_E = 24,
-    AUTOMOBILE_NUM_NODES
+enum eCarNodes {
+    CAR_NODE_NONE = 0,
+    CAR_CHASSIS = 1,
+    CAR_WHEEL_RF = 2,
+    CAR_WHEEL_RM = 3,
+    CAR_WHEEL_RB = 4,
+    CAR_WHEEL_LF = 5,
+    CAR_WHEEL_LM = 6,
+    CAR_WHEEL_LB = 7,
+    CAR_DOOR_RF = 8,
+    CAR_DOOR_RR = 9,
+    CAR_DOOR_LF = 10,
+    CAR_DOOR_LR = 11,
+    CAR_BUMP_FRONT = 12,
+    CAR_BUMP_REAR = 13,
+    CAR_WING_RF = 14,
+    CAR_WING_LF = 15,
+    CAR_BONNET = 16,
+    CAR_BOOT = 17,
+    CAR_WINDSCREEN = 18,
+    CAR_EXHAUST = 19,
+    CAR_MISC_A = 20,
+    CAR_MISC_B = 21,
+    CAR_MISC_C = 22,
+    CAR_MISC_D = 23,
+    CAR_MISC_E = 24,
+    CAR_NUM_NODES
 };
 
 #pragma pack(push, 1)
-class PLUGIN_API  CAutomobile : public CVehicle {
+class CAutomobile : public CVehicle {
+protected:
+    CAutomobile(plugin::dummy_func_t) : CVehicle(plugin::dummy) {}
 public:
     CDamageManager m_damageManager;
     CDoor m_doors[6];
-    RwFrame *m_modelNodes[AUTOMOBILE_NUM_NODES];
-    CPanel m_panels[3];
+    RwFrame *m_aCarNodes[CAR_NUM_NODES];
+    CBouncingPanel m_panels[3];
     CDoor m_swingingChassis;
     CColPoint m_wheelColPoint[4];
     float wheelsDistancesToGround1[4];
@@ -75,7 +83,7 @@ public:
     float m_fCarTraction;
     float m_fNitroValue;
     int field_8A4;
-    int field_8A8;
+    int m_fRotationBalance; // used in CHeli::TestSniperCollision
     float m_fMoveDirection;
     int field_8B4[6];
     int field_8C8[6];
@@ -128,15 +136,20 @@ public:
     short field_982;
     float field_984;
 
+    static bool &m_sAllTaxiLights;
+    static CVector &vecHunterGunPos; // { 0.0f, 4.8f, -1.3f }
+
     //vtable
 
-    void ProcessAI(unsigned int& arg0);
+    bool ProcessAI(unsigned int& arg0);
     void ResetSuspension();
     void ProcessFlyingCarStuff();
     void DoHoverSuspensionRatios();
     void ProcessSuspension();
 
     //funcs
+
+    CAutomobile(int modelIndex, unsigned char createdBy, bool setupSuspensionLines);
 
     // Find and save components ptrs (RwFrame) to m_modelNodes array
     void SetupModelNodes();
@@ -236,6 +249,8 @@ public:
 #pragma pack(pop)
 
 VALIDATE_SIZE(CAutomobile, 0x988);
+
+extern CColPoint *aAutomobileColPoints;
 
 // Disable matfx (material effects) for material (callback), "data" parameter is unused
 RpMaterial *DisableMatFx(RpMaterial* material, void* data);

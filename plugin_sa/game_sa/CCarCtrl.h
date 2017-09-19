@@ -1,5 +1,11 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "game_sa\CVehicle.h"
 
 
@@ -18,4 +24,5 @@ public:
 	static void PossiblyFireHSMissile(CVehicle* veh, CEntity* targetEntity);
 	static void SteerAIBoatWithPhysicsCirclingPlayer(CVehicle* veh, float* a1, float* a2, float* a3, bool* a4);
 	static CVehicle* CreateOneEmergencyServicesVehicle(int model, CVector driveToCoord);
+    static CVehicle *CreateCarForScript(int modelId, CVector posn, unsigned char bMissionVehicle);
 };

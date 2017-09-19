@@ -1,6 +1,12 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CPhysical.h"
 #include "CObjectInfo.h"
 
@@ -12,65 +18,70 @@ enum eObjectType {
 
 class CDummyObject;
 
-#pragma pack(push, 1)
-class PLUGIN_API CObject : public CPhysical {
+class CObject : public CPhysical {
 public:
-	void               *m_pControlCodeList;
-	unsigned __int8     m_nObjectType; // see enum eObjectType
-	unsigned __int8     m_nBonusValue;
-	unsigned __int16    m_wCostValue;
-	unsigned __int32 bObjectFlag0 : 1;
-	unsigned __int32 bObjectFlag1 : 1;
-	unsigned __int32    m_bPickupPropertyForSale : 1;
-	unsigned __int32    m_bPickupInShopOutOfStock : 1;
-	unsigned __int32    m_bGlassBroken : 1;
-	unsigned __int32 bObjectFlag5 : 1;
-	unsigned __int32    m_bIsExploded : 1;
-	unsigned __int32 bObjectFlag7 : 1;
-	unsigned __int32    m_bIsLampPost : 1;
-	unsigned __int32    m_bIsTargatable : 1;
-	unsigned __int32    m_bIsBroken : 1;
-	unsigned __int32    m_bTrainCrossEnabled : 1;
-	unsigned __int32    m_bIsPhotographed : 1;
-	unsigned __int32    m_bIsLiftable : 1;
-	unsigned __int32    m_bIsDoorMoving : 1;
-	unsigned __int32    m_bbIsDoorOpen : 1;
-	unsigned __int32    m_bHasNoModel : 1;
-	unsigned __int32    m_bIsScaled : 1;
-	unsigned __int32    m_bCanBeAttachedToMagnet : 1;
-	unsigned __int32 bObjectFlag19 : 1;
-	unsigned __int32 bObjectFlag20 : 1;
-	unsigned __int32 bObjectFlag21 : 1;
-	unsigned __int32    m_bFadingIn : 1;
-	unsigned __int32    m_bAffectedByColBrightness : 1;
-	unsigned __int32 bObjectFlag24 : 1;
-	unsigned __int32    m_bDoNotRender : 1;
-	unsigned __int32    m_bFadingIn2 : 1;
-	unsigned __int32 bObjectFlag27 : 1;
-	unsigned __int32 bObjectFlag28 : 1;
-	unsigned __int32 bObjectFlag29 : 1;
-	unsigned __int32 bObjectFlag30 : 1;
-	unsigned __int32 bObjectFlag31 : 1;
-	unsigned __int8     m_nColDamageEffect;
-	unsigned __int8     m_nStoredColDamageEffect;
-	__int8           field_146;
-	__int8              m_nGarageDoorGarageIndex;
-	unsigned __int8     m_nLastWeaponDamage;
-	unsigned __int8     m_nColBrightness;
-	__int16             m_nRefModelIndex;
-	unsigned __int8     m_nCarColor[4]; // this is used for detached car parts
-	__int32             m_dwRemovalTime; // time when this object must be deleted
-	float               m_fHealth;
-	float               m_fDoorStartAngle; // this is used for door objects
-	float               m_fScale;
-	CObjectInfo        *m_pObjectInfo;
-	void               *m_pFire; // CFire *
-	__int16             m_wScriptTriggerIndex;
-	__int16             m_wRemapTxd; // this is used for detached car parts
-	RwTexture          *m_pRemapTexture; // this is used for detached car parts
-	CDummyObject       *m_pDummyObject; // used for dynamic objects like garage doors, train crossings etc.
-	__int32             m_dwBurnTime; // time when particles must be stopped
-	float               m_fBurnDamage;
+    void           *m_pControlCodeList;
+    unsigned char   m_nObjectType; // see enum eObjectType
+    unsigned char   m_nBonusValue;
+    unsigned short  m_wCostValue;
+    struct {
+        unsigned int b01 : 1;
+        unsigned int b02 : 1;
+        unsigned int bPickupPropertyForSale : 1;
+        unsigned int bPickupInShopOutOfStock : 1;
+        unsigned int bGlassBroken : 1;
+        unsigned int b06 : 1;
+        unsigned int bIsExploded : 1;
+        unsigned int b08 : 1;
+
+        unsigned int bIsLampPost : 1;
+        unsigned int bIsTargatable : 1;
+        unsigned int bIsBroken : 1;
+        unsigned int bTrainCrossEnabled : 1;
+        unsigned int bIsPhotographed : 1;
+        unsigned int bIsLiftable : 1;
+        unsigned int bIsDoorMoving : 1;
+        unsigned int bbIsDoorOpen : 1;
+
+        unsigned int bHasNoModel : 1;
+        unsigned int bIsScaled : 1;
+        unsigned int bCanBeAttachedToMagnet : 1;
+        unsigned int b20 : 1;
+        unsigned int b21 : 1;
+        unsigned int b22 : 1;
+        unsigned int bFadingIn : 1; // works only for objects with type 2 (OBJECT_MISSION)
+        unsigned int bAffectedByColBrightness : 1;
+
+        unsigned int b25 : 1;
+        unsigned int bDoNotRender : 1;
+        unsigned int bFadingIn2 : 1;
+        unsigned int b28 : 1;
+        unsigned int b29 : 1;
+        unsigned int b30 : 1;
+        unsigned int b31 : 1;
+        unsigned int b32 : 1;
+    } m_nObjectFlags;
+    unsigned char   m_nColDamageEffect;
+    unsigned char   m_nStoredColDamageEffect;
+    char field_146;
+    char            m_nGarageDoorGarageIndex;
+    unsigned char   m_nLastWeaponDamage;
+    unsigned char   m_nDayBrightness : 4;
+    unsigned char   m_nNightBrightness : 4;
+    short           m_nRefModelIndex;
+    unsigned char   m_nCarColor[4]; // this is used for detached car parts
+    int             m_dwRemovalTime; // time when this object must be deleted
+    float           m_fHealth;
+    float           m_fDoorStartAngle; // this is used for door objects
+    float           m_fScale;
+    CObjectInfo    *m_pObjectInfo;
+    void           *m_pFire; // CFire *
+    short           m_wScriptTriggerIndex;
+    short           m_wRemapTxd; // this is used for detached car parts
+    RwTexture      *m_pRemapTexture; // this is used for detached car parts
+    CDummyObject   *m_pDummyObject; // used for dynamic objects like garage doors, train crossings etc.
+    int             m_dwBurnTime; // time when particles must be stopped
+    float           m_fBurnDamage;
 
     // class functions
 
@@ -98,7 +109,7 @@ public:
     void ObjectDamage(float damage, CVector* fxOrigin, CVector* fxDirection, CEntity* damager, eWeaponType weaponType);
     void Explode();
     void ObjectFireDamage(float damage, CEntity* damager);
-    
+
     void GrabObjectToCarryWithRope(CPhysical* attachTo);
     bool CanBeUsedToTakeCoverBehind();
     static class CObject* Create(int modelIndex);
@@ -113,7 +124,6 @@ public:
     static void DeleteAllMissionObjects();
     static void DeleteAllTempObjectsInArea(CVector point, float radius);
 };
-#pragma pack(pop)
 
 VALIDATE_SIZE(CObject, 0x17C);
 

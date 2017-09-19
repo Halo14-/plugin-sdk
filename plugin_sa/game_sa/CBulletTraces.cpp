@@ -1,6 +1,19 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "CBulletTraces.h"
 
+unsigned int MAX_NUM_BULLETTRACES = 16;
+
 CBulletTrace *CBulletTraces::aTraces = (CBulletTrace *)0xC7C748;
+
+// Converted from cdecl void CBulletTraces::AddTrace(CVector * start,CVector * end,int weaponType,CEntity * entity) 0x573D40
+void CBulletTraces::AddTrace(CVector* start, CVector* end, int weaponType, CEntity* entity) {
+    plugin::Call<0x726AF0, CVector*, CVector*, int, CEntity*>(start, end, weaponType, entity);
+}
 
 void CBulletTraces::AddTrace(CVector *start, CVector *end, float radius, unsigned int time, unsigned char transparency)
 {

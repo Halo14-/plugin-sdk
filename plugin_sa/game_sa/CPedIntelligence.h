@@ -1,6 +1,12 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 
-#include "plbase/PluginBase.h"
+#include "plbase/PluginBase_SA.h"
 #include "CTaskManager.h"
 #include "CEventHandler.h"
 #include "CEventGroup.h"
@@ -44,7 +50,7 @@ public:
     char gap_27C[12];
     class CEntity *m_apInterestingEntities[3];
     
-    CTaskSimpleJetpack *GetJetpackTask();
+    CTaskSimpleJetPack *GetJetpackTask();
     CTaskSimpleUseGun *GetUseGunTask();
 };
 

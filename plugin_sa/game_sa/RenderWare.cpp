@@ -1,10 +1,28 @@
+/*
+    Plugin-SDK (Grand Theft Auto) source file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #include "RenderWare.h"
 
-void *RwEngineInstance = (void *)0xC97B24;
+RwGlobals *&RwEngineInstance = *(RwGlobals **)0xC97B24;
 
 RsGlobalType &RsGlobal = *(RsGlobalType *)0xC17040;
 
-LPDIRECT3DDEVICE9 _RwD3DDevice = (LPDIRECT3DDEVICE9)0xC97C28;
+RwPluginRegistry &geometryTKList = *(RwPluginRegistry *)0x8D628C;
+
+IDirect3DDevice9 *GetD3DDevice() {
+    return *reinterpret_cast<IDirect3DDevice9 **>(0xC97C28);
+}
+
+_D3DMATRIX *GetD3DViewTransform() {
+    return reinterpret_cast<_D3DMATRIX *>(0xC9BC80);
+}
+
+_D3DMATRIX *GetD3DProjTransform() {
+    return reinterpret_cast<_D3DMATRIX *>(0x8E2458);
+}
 
 /* rwplcore.h */
 
@@ -312,8 +330,20 @@ void* _rwSListGetEnd(RwSList* sList) {
     return ((void*(__cdecl *)(RwSList*))0x809540)(sList);
 }
 
+RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices) {
+    return ((int(__cdecl *)(RwPrimitiveType, RwIm2DVertex*, RwInt32))0x734E90)(primType, vertices, numVertices);
+}
+
+RwBool RwIm2DRenderIndexedPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices) {
+    return ((int(__cdecl *)(RwPrimitiveType, RwIm2DVertex*, RwInt32, RwImVertexIndex*, RwInt32))0x734EA0)(primType, vertices, numVertices, indices, numIndices);
+}
+
+RwBool RwIm2DRenderTriangle(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2, RwInt32 vert3) {
+    return ((int(__cdecl *)(RwIm2DVertex*, RwInt32, RwInt32, RwInt32, RwInt32))0x734EB0)(vertices, numVertices, vert1, vert2, vert3);
+}
+
 RwBool RwIm2DRenderLine(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2) {
-    return ((RwBool(__cdecl *)(RwIm2DVertex*, RwInt32, RwInt32, RwInt32))0x734EC0)(vertices, numVertices, vert1, vert2);
+    return ((int(__cdecl *)(RwIm2DVertex*, RwInt32, RwInt32, RwInt32))0x734EC0)(vertices, numVertices, vert1, vert2);
 }
 
 RwUInt32 RwEngineGetVersion(void) {
@@ -652,10 +682,6 @@ RxLockedPipe* RxPipelineLock(RxPipeline* pipeline) {
 
 RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline) {
     return ((RxPipeline*(__cdecl *)(RxLockedPipe*))0x805F40)(pipeline);
-}
-
-RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, ...) {
-    return ((RxLockedPipe*(__cdecl *)(RxLockedPipe*, RwUInt32*, RxNodeDefinition*, ...))0x806BE0)(pipeline, firstIndex, nodeDef0);
 }
 
 RxPipeline* RxLockedPipeReplaceNode(RxLockedPipe* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDef) {
@@ -1150,12 +1176,12 @@ void _rwD3D9SetFVF(RwUInt32 fvf) {
     ((void(__cdecl *)(RwUInt32))0x7F9F30)(fvf);
 }
 
-void _rwD3D9SetVertexShader(void) {
-    ((void(__cdecl *)(void))0x7F9FB0)();
+void _rwD3D9SetVertexShader(void *shader) {
+    ((void(__cdecl *)(void *))0x7F9FB0)(shader);
 }
 
-void _rwD3D9SetPixelShader(void) {
-    ((void(__cdecl *)(void))0x7F9FF0)();
+void _rwD3D9SetPixelShader(void *shader) {
+    ((void(__cdecl *)(void *))0x7F9FF0)(shader);
 }
 
 void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
@@ -1164,6 +1190,10 @@ void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value) {
 
 void RwD3D9GetRenderState(RwUInt32 state, void* value) {
     ((void(__cdecl *)(RwUInt32, void*))0x7FC320)(state, value);
+}
+
+void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value) {
+    ((void(__cdecl *)(RwUInt32, RwUInt32, RwUInt32))0x7FC340)(stage, type, value);
 }
 
 void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value) {
@@ -3450,4 +3480,8 @@ RwImage* RtPNGImageWrite(RwImage* image, const RwChar* imageName) {
 
 RwImage* RtPNGImageRead(const RwChar* imageName) {
     return ((RwImage*(__cdecl *)(const RwChar*))0x7CF9B0)(imageName);
+}
+
+void _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties *surfProps) {
+    ((void (__cdecl *)(RwSurfaceProperties*))0x74D870)(surfProps);
 }

@@ -1,17 +1,10 @@
-/********************************plugin-sdk source file*************************************/
-/* File creator: DK22Pac                                                                   */
-/* File editors: DK22Pac                                                                   */
-/* File descrip: RenderWare structures/enumerations/functions/defines are represented here.*/
-/* File created: 17.04.2013                                                                */
-/* File last ed: 12.06.2016                                                                */
-/*******************************************************************************************/
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
-
-#define _D3D_INCLUDE
-
-#ifdef _D3D_INCLUDE
-#include <d3d9.h>
-#endif
 
 // TODO: Clean up RW headers
 
@@ -21,16 +14,27 @@
 #include "rw\rpskin.h"
 #include "rw\rpmatfx.h"
 #include "rw\skeleton.h"
+#ifdef _DX9_SDK_INSTALLED
+#include "d3d9.h"
+#endif
 
-extern void *RwEngineInstance;
+extern RwGlobals *&RwEngineInstance;
 
 /* macro used to access global data structure (the root type is RwGlobals) */
-#define RWSRCGLOBAL(variable) \
-   (((RwGlobals *)RwEngineInstance)->variable)
+#define RWSRCGLOBAL(variable) (RwEngineInstance->variable)
 
 extern RsGlobalType &RsGlobal;
 
-extern LPDIRECT3DDEVICE9 _RwD3DDevice;
+extern RwPluginRegistry &geometryTKList;
+
+struct IDirect3DDevice9 *GetD3DDevice();
+
+#ifndef D3DMATRIX_DEFINED
+struct _D3DMATRIX;
+#endif
+
+_D3DMATRIX *GetD3DViewTransform();
+_D3DMATRIX *GetD3DProjTransform();
 
 /* rwplcore.h */
 
@@ -110,7 +114,10 @@ void* _rwSListGetNewEntry(RwSList* sList, RwUInt32 hint); // 0x809240
 RwInt32 _rwSListGetNumEntries(const RwSList* sList); // 0x8094B0
 void* _rwSListGetBegin(RwSList* sList); // 0x809530
 void* _rwSListGetEnd(RwSList* sList); // 0x809540
-RwBool RwIm2DRenderLine(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2); // 0x734EC0
+RwBool RwIm2DRenderPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices);
+RwBool RwIm2DRenderIndexedPrimitive(RwPrimitiveType primType, RwIm2DVertex* vertices, RwInt32 numVertices, RwImVertexIndex* indices, RwInt32 numIndices);
+RwBool RwIm2DRenderTriangle(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2, RwInt32 vert3);
+RwBool RwIm2DRenderLine(RwIm2DVertex* vertices, RwInt32 numVertices, RwInt32 vert1, RwInt32 vert2);
 RwUInt32 RwEngineGetVersion(void); // 0x7F2BA0
 RwBool RwEngineInit(const RwMemoryFunctions* memFuncs, RwUInt32 initFlags, RwUInt32 resArenaSize); // 0x7F3170
 RwInt32 RwEngineRegisterPlugin(RwInt32 size, RwUInt32 pluginID, RwPluginObjectConstructor initCB, RwPluginObjectDestructor termCB); // 0x7F2BB0
@@ -198,7 +205,6 @@ RxPipelineNode* RxPipelineFindNodeByName(RxPipeline* pipeline, const RwChar* nam
 RxPipelineNode* RxPipelineFindNodeByIndex(RxPipeline* pipeline, RwUInt32 nodeindex); // 0x806BC0
 RxLockedPipe* RxPipelineLock(RxPipeline* pipeline); // 0x806990
 RxPipeline* RxLockedPipeUnlock(RxLockedPipe* pipeline); // 0x805F40
-RxLockedPipe* RxLockedPipeAddFragment(RxLockedPipe* pipeline, RwUInt32* firstIndex, RxNodeDefinition* nodeDef0, ...); // 0x806BE0
 RxPipeline* RxLockedPipeReplaceNode(RxLockedPipe* pipeline, RxPipelineNode* node, RxNodeDefinition* nodeDef); // 0x806F20
 RxPipeline* RxLockedPipeDeleteNode(RxLockedPipe* pipeline, RxPipelineNode* node); // 0x807040
 RxPipeline* RxLockedPipeSetEntryPoint(RxLockedPipe* pipeline, RxNodeInput in); // 0x807070
@@ -322,10 +328,11 @@ void _rwD3D9DrawIndexedPrimitive(RwUInt32 primitiveType, RwInt32 baseVertexIndex
 void _rwD3D9SetVertexShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount); // 0x7FACA0
 void _rwD3D9SetPixelShaderConstant(RwUInt32 registerAddress, const void* constantData, RwUInt32 constantCount); // 0x7FAD00
 void _rwD3D9SetFVF(RwUInt32 fvf); // 0x7F9F30
-void _rwD3D9SetVertexShader(void); // 0x7F9FB0
-void _rwD3D9SetPixelShader(void); // 0x7F9FF0
+void _rwD3D9SetVertexShader(void *shader); // 0x7F9FB0
+void _rwD3D9SetPixelShader(void *shader); // 0x7F9FF0
 void RwD3D9SetRenderState(RwUInt32 state, RwUInt32 value); // 0x7FC2D0
 void RwD3D9GetRenderState(RwUInt32 state, void* value); // 0x7FC320
+void RwD3D9SetTextureStageState(RwUInt32 stage, RwUInt32 type, RwUInt32 value); // 0x7FC340
 void RwD3D9GetTextureStageState(RwUInt32 stage, RwUInt32 type, void* value); // 0x7FC3A0
 void RwD3D9SetSamplerState(RwUInt32 stage, RwUInt32 type, RwUInt32 value); // 0x7FC3C0
 void RwD3D9GetSamplerState(RwUInt32 stage, RwUInt32 type, void* value); // 0x7FC400
@@ -925,3 +932,21 @@ RwImage* RtBMPImageRead(const RwChar* imageName); // 0x7CDF60
 
 RwImage* RtPNGImageWrite(RwImage* image, const RwChar* imageName); // 0x7CF600
 RwImage* RtPNGImageRead(const RwChar* imageName); // 0x7CF9B0
+
+
+void _rpMaterialSetDefaultSurfaceProperties(RwSurfaceProperties *surfProps);
+
+
+#define RwRenderStateGetMacro(_state, _value)   \
+    (RWSRCGLOBAL(dOpenDevice).fpRenderStateGet(_state, _value))
+
+#define RwRenderStateSetMacro(_state, _value)   \
+    (RWSRCGLOBAL(dOpenDevice).fpRenderStateSet(_state, _value))
+
+#define RwRenderStateGet(_state, _value) \
+        RwRenderStateGetMacro(_state, _value)
+
+#define RwRenderStateSet(_state, _value) \
+        RwRenderStateSetMacro(_state, _value)
+
+#define RWRSTATE(a) (reinterpret_cast<void *>(a))

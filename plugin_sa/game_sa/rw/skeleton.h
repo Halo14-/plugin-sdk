@@ -1,3 +1,9 @@
+/*
+    Plugin-SDK (Grand Theft Auto) header file
+    Authors: GTA Community. See more here
+    https://github.com/DK22Pac/plugin-sdk
+    Do not delete this comment block. Respect others' work!
+*/
 #pragma once
 /****************************************************************************
  *
@@ -18,6 +24,7 @@
  *
  */
 #include "rwcore.h"
+#include <Windows.h>
 
 /* Default arena size depending on platform. */
 
@@ -106,15 +113,29 @@ struct RsInputDevice
     RsInputEventHandler inputEventHandler;
 };
 
+struct psGlobalType
+{
+    HWND      window;
+    HINSTANCE instance;
+    RwBool    fullScreen;
+    RwV2d     lastMousePos;
+    int       field_14;
+    void*     diInterface;
+    void*     diMouse;
+    void*     diDevice1;
+    void*     diDevice2;
+};
+
 typedef struct RsGlobalType RsGlobalType;
 struct RsGlobalType
 {
     const RwChar *appName;
     RwInt32 maximumWidth;
     RwInt32 maximumHeight;
+    RwInt32 frameLimit;
     RwBool  quit;
 
-    void   *ps; /* platform specific data */
+    psGlobalType   *ps; /* platform specific data */
 
     RsInputDevice keyboard;
     RsInputDevice mouse;
